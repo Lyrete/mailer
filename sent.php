@@ -12,9 +12,8 @@ require 'PHPMailer/src/SMTP.php';
 $mail = new PHPMailer(true);
 $values = new Values(); // I should probably make these inputtable instead of static
 
-$sender = $_POST["sender"];
-$receiver = $_POST["receiver"];
 $text = $_POST["text"];
+
 
 $finalText = '';
 
@@ -27,13 +26,15 @@ for ($i = 0; $i < strlen($text); $i++){
     }
 }
 
+$finalText .= $values->signature; //adds signature to the end
+
 try {
     //Server settings
     $mail->SMTPDebug = 0;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = $values->smtp;                       // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = $values->username;                 // SMTP username
+    $mail->Username = $values->user;                 // SMTP username
     $mail->Password = $values->pw;                        // SMTP password
     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                                    // TCP port to connect to
@@ -41,8 +42,8 @@ try {
     $mail->CharSet = 'utf-8';
 
     //Recipients
-    $mail->setFrom($sender);
-    $mail->addAddress($receiver);     // Add a recipient
+    $mail->setFrom($_POST["sender"], 'Tommi Alajoki');
+    $mail->addAddress($_POST["receiver"]);     // Add a recipient
 //    $mail->addAddress('ellen@example.com');               // Name is optional
 //    $mail->addReplyTo('info@example.com', 'Information');
 //    $mail->addCC('cc@example.com');
@@ -54,7 +55,7 @@ try {
 
     //Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'test';
+    $mail->Subject = ($_POST["subject"]);
     $mail->Body    = $finalText;
     $mail->AltBody = $finalText;
 
