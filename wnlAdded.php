@@ -7,7 +7,7 @@ $finalText = '';
 for ($i = 0; $i < strlen($text); $i++){
     
     if($text[$i] == "\n"){                                // Replaces newline chars with html breaks
-        $finalText .= '<br>';                               // for mailing as HTML
+        $finalText .= '<br>';                               
     } else {
         $finalText .= $text[$i];
     }

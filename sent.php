@@ -1,5 +1,7 @@
 <?php
 
+ini_set('max_execution_time', 23600);
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -28,6 +30,14 @@ for ($i = 0; $i < strlen($text); $i++){
 
 $finalText .= $values->signature; //adds signature to the end
 
+
+
+while(true){
+    if(microtime(true) > 1515384000){        
+        break;
+    }
+}
+
 try {
     //Server settings
     $mail->SMTPDebug = 0;                                 // Enable verbose debug output
@@ -38,7 +48,7 @@ try {
     $mail->Password = $values->pw;                        // SMTP password
     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                                    // TCP port to connect to
-    
+
     $mail->CharSet = 'utf-8';
 
     //Recipients
@@ -57,7 +67,7 @@ try {
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = ($_POST["subject"]);
     $mail->Body    = $finalText;
-    $mail->AltBody = $finalText;
+    $mail->AltBody = $text;
 
     $mail->send();
     echo 'Message has been sent';
