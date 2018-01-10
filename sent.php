@@ -57,7 +57,7 @@ try {
 //    $mail->addAddress('ellen@example.com');               // Name is optional
 //    $mail->addReplyTo('info@example.com', 'Information');
 //    $mail->addCC('cc@example.com');
-//    $mail->addBCC('bcc@example.com');
+//    $mail->addBCC($values->bcc);
 
     //Attachments
 //    $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
