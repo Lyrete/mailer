@@ -1,5 +1,5 @@
 <form action="wnlAdded.php" method="post">
-    Event: <input type="text" name="subject"><br>
+    Event: <input type="text" name="subject"> (<b>Don't enter a date at the end the script does it automatically!!!!!</b>)<br>
     Start date: <input type="date" name="startDate"><br>
     End date: <input type="Date" name="endDate"> (Don't enter if the event is one day only)
     <br>    
