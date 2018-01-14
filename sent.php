@@ -1,6 +1,7 @@
 <?php
 
 ini_set('max_execution_time', 23600);
+ini_set('file_uploads', 'On');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -10,6 +11,24 @@ require 'values.php';
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
+
+function upload($filename){
+    $target_dir = __DIR__ . "/uploads/";
+    $target_file = $target_dir . basename($_FILES[$filename]["name"]);
+    $uploadOk = 1;
+    
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+    // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES[$filename]["tmp_name"], $target_file)) {
+            echo "The file ". basename($_FILES[$filename]["name"]). " has been uploaded.";
+            return $target_file;
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }    
+    }   
+}
 
 $mail = new PHPMailer(true);
 $values = new Values(); // I should probably make these inputtable instead of static
@@ -32,10 +51,17 @@ $finalText .= $values->signature; //adds signature to the end
 
 
 
-while(true){
-    if(microtime(true) > 1515384000){        
-        break;
-    }
+//while(true){
+//    if(microtime(true) > 1515384000){        
+//        break;
+//    }
+//}
+
+$attachments = [];
+
+for ($i=1; $i <= 2; $i++){
+    $name = "fileToUpload" . $i;
+    $attachments[] = upload($name);
 }
 
 try {
@@ -60,8 +86,9 @@ try {
 //    $mail->addBCC($values->bcc);
 
     //Attachments
-//    $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-//    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+    for($i=0; $i < sizeof($attachments); $i++){    
+        $mail->addAttachment($attachments[$i]);         // Add attachments
+    }
 
     //Content
     $mail->isHTML(true);                                  // Set email format to HTML
