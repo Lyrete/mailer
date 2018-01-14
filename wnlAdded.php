@@ -1,19 +1,14 @@
 <?php
 
-require 'Date.php';
+require 'Event.php';
+require 'values.php';
 
 $text = $_POST["text"];
 
 $finalText = '';
 
-for ($i = 0; $i < strlen($text); $i++){
-    
-    if($text[$i] == "\n"){                                // Replaces newline chars with html breaks
-        $finalText .= '<br>';                               
-    } else {
-        $finalText .= $text[$i];
-    }
-}
+//POST dates from wnlAdd.php
+//and conversion to Date objects for easy comparing
 
 $start = $_POST["startDate"];
 $end = $_POST["endDate"];
@@ -28,43 +23,39 @@ $month = substr($end, 5, 2);
 
 $endDate = new Date($day, $month);
 
-if($endDate->day == '' and $endDate->month == ''){
-    $duration = (string)$startDate;
-} else {
-    $duration = $startDate . '-' . $endDate;
-}
+$event = new Event($_POST["subject"], $startDate, $endDate, $text);
 
-$subject = $_POST["subject"] . ' ' . $duration;
-
-$text = '<b>' . $subject . '</b>' . "\n" . "\n" . $text;
-
-//TG message functionality
-
-$channel = "-1001398336786";
-$api_token = "416904756:AAGGqOLio1vAS2KpbqqMKiZKmFk_pJVm3nU";
-$method = "/sendMessage";
-$url = "https://api.telegram.org/bot";
-
-//add options to url
-
-$url = $url . $api_token . $method . '?chat_id=' . $channel . '&parse_mode=HTML' . '&text=';
-
-if(strlen($text) > 4096){
-    $arr1 = str_split($text, 4096);
-    foreach($arr1 as $part){
-        $ch = curl_init($url . urlencode($part));
-        curl_exec($ch);
-    }
-} else {
-    $ch = curl_init($url . urlencode($text));
-    curl_exec($ch);
-}
+$rawFile = fopen('data/test.txt', 'w');
+$htmlFile = fopen('data/test.html', 'w');
+fwrite($rawFile, $event->rawText());
+fwrite($htmlFile, $event->HTMLtext());
+fclose($rawFile);
+fclose($htmlFile);
         
 
-//?chat_id=-1001398336786&text=test
-        
-
-?>
+////TG message functionality
+//
+//$channel = "-1001398336786";
+//$api_token = $values->api_key;
+//$method = "/sendMessage";
+//$url = "https://api.telegram.org/bot";
+//
+////add options to url
+//
+//$url = $url . $api_token . $method . '?chat_id=' . $channel . '&parse_mode=HTML' . '&text=';
+//
+//if(strlen($text) > 4096){
+//    $arr1 = str_split($text, 4096);
+//    foreach($arr1 as $part){
+//        $ch = curl_init($url . urlencode($part));
+//        curl_exec($ch);
+//    }
+//} else {
+//    $ch = curl_init($url . urlencode($text));
+//    curl_exec($ch);
+//}        
+//
+//?>
 
 
 
