@@ -49,13 +49,17 @@ for ($i = 0; $i < strlen($text); $i++){
 
 $finalText .= $values->signature; //adds signature to the end
 
+$array = explode(':',$_POST["timeToSend"]);
 
+$array[0] = (int)$array[0] - 1;
 
-//while(true){
-//    if(microtime(true) > 1515384000){        
-//        break;
-//    }
-//}
+while(true){
+    if($array[0] < date("H")){
+        break;
+    } elseif ($array[0] == date("H") and $array[1] < date("i")){
+        break;
+    }
+}
 
 $attachments = [];
 
@@ -87,7 +91,11 @@ try {
 
     //Attachments
     for($i=0; $i < sizeof($attachments); $i++){    
-        $mail->addAttachment($attachments[$i]);         // Add attachments
+        try{
+            $mail->addAttachment($attachments[$i]);         // Add attachments
+        }catch (Exception $e){
+            echo 'No attachment added.';
+        }
     }
 
     //Content

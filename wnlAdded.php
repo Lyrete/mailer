@@ -25,12 +25,17 @@ $endDate = new Date($day, $month);
 
 $event = new Event($_POST["subject"], $startDate, $endDate, $text);
 
-$rawFile = fopen('data/test.txt', 'w');
-$htmlFile = fopen('data/test.html', 'w');
-fwrite($rawFile, $event->rawText());
-fwrite($htmlFile, $event->HTMLtext());
+$week = strftime('%V',time());
+
+mkdir(__DIR__ . '/data/' . $week . '/', 0777);
+chmod(__DIR__ . '/data/' . $week . '/', 0777);
+
+$rawFile = fopen(__DIR__ . '/data/' . $week . '/test.txt', 'w');
+//$htmlFile = fopen('data/test.html', 'w');
+fwrite($rawFile, serialize($event));
+//fwrite($htmlFile, $event->HTMLtext());
 fclose($rawFile);
-fclose($htmlFile);
+//fclose($htmlFile);
         
 
 ////TG message functionality

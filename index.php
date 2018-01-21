@@ -8,6 +8,7 @@ Receiver: <input type="text" name="receiver"><br>
 Subject: <input style="width:400px" type="text" name="subject"><br>
 Attachment #1: <input type="file" name="fileToUpload1" id="fileToUpload1"><br>
 Attachment #2: <input type="file" name="fileToUpload2" id="fileToUpload2"><br>
+When to send: <input type="time" name="timeToSend" id="timeToSend"><br>
 
 <br>
 
