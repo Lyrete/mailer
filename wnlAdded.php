@@ -13,30 +13,48 @@ $finalText = '';
 $start = $_POST["startDate"];
 $end = $_POST["endDate"];
 
-$day = substr($start, 8, 2);
-$month = substr($start, 5, 2);
+$eventType = $_POST["eventType"];
 
-$startDate = new Date($day, $month);
+session_start();
 
-$day = substr($end, 8, 2);
-$month = substr($end, 5, 2);
+for ($i = 0; $i < strlen($text); $i++){
+    
+    if($text[$i] == "'"){                                // adds a \ before ' symbols because of problems otherwise
+        $finalText .= "\'";                               
+    } else {
+        $finalText .= $text[$i];
+    }
+}
 
-$endDate = new Date($day, $month);
+$finalEvent = '';
 
-$event = new Event($_POST["subject"], $startDate, $endDate, $text);
+for ($i = 0; $i < strlen($_POST["subject"]); $i++){
+    
+    if($_POST["subject"][$i] == "'"){                                // adds a \ before ' symbols because of problems otherwise
+        $finalEvent .= "\'";                               
+    } else {
+        $finalEvent .= $_POST["subject"][$i];
+    }
+}
 
-$week = strftime('%V',time());
+$sqlstring = "INSERT INTO event (name, startDate, endDate, description, kategoria)"
+        . " VALUES ('" . $finalEvent . "','" . $start . "','" . $end . "','" .
+        $finalText . "','" . $eventType . "')";
 
-mkdir(__DIR__ . '/data/' . $week . '/', 0777);
-chmod(__DIR__ . '/data/' . $week . '/', 0777);
+$conn = mysqli_connect('localhost', $_SESSION["dbUser"], $_SESSION["dbPW"],'newsletter');
+$conn->set_charset('utf8');
 
-$rawFile = fopen(__DIR__ . '/data/' . $week . '/test.txt', 'w');
-//$htmlFile = fopen('data/test.html', 'w');
-fwrite($rawFile, serialize($event));
-//fwrite($htmlFile, $event->HTMLtext());
-fclose($rawFile);
-//fclose($htmlFile);
-        
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+echo "Connected successfully<br>";
+
+$result = $conn->query($sqlstring);
+
+echo $result;
+
+
 
 ////TG message functionality
 //
