@@ -2,6 +2,10 @@
 
 session_start();
 
+if($_SESSION["user"] != NULL){
+    
+    include 'navigation.php';
+
 ?>
 
 
@@ -26,6 +30,10 @@ if(isset($_POST["sender"])==TRUE){
     include 'construct.php';
     
     include 'mailit.php';
+}
+
+} else {
+    include 'index.php';
 }
 
 
