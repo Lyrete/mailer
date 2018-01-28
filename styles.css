@@ -1,0 +1,13 @@
+
+.links{
+    width: 100%;
+    float: top;
+    height: 60px;
+}
+
+.pagePart{
+    margin: 0px;
+    width: 100px;
+    float: left;
+}
+
