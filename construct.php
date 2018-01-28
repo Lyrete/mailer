@@ -1,37 +1,20 @@
 <?php
 
-session_start();
+require 'database.php';
 
-$conn = mysqli_connect('localhost', $_SESSION["dbUser"], $_SESSION["dbPW"],'newsletter');
-$conn->set_charset('utf8');
+$db = new DB();
 
-$sql = "SELECT * FROM event";
+$sql = "SELECT * FROM event ORDER BY startDate";
 
-$result = $conn->query($sql);
-
-$wholeresult = mysqli_fetch_all($result,MYSQLI_ASSOC);
-
-$date = array();
-
-foreach ($wholeresult as $key => $row)
-{
-    $date[$key] = $row['startDate'];
-}
-array_multisort($date, SORT_ASC, $wholeresult);
-
-$type = array();
-
-foreach ($wholeresult as $key => $row)
-{
-    $type[$key] = $row['kategoria'];
-}
-array_multisort($type, SORT_ASC, $wholeresult);
+$wholeresult = $db->getWholeResult($sql);
 
 //initialize arrays for the types of events
 
 $guildEvents = array();
 $otherEvents = array();
 $misc = array();
+
+$attachments = array();
 
 foreach ($wholeresult as $row){
     if($row["startDate"] > date('Y-m-d')){
@@ -45,57 +28,85 @@ foreach ($wholeresult as $row){
 //        echo $row["kategoria"] . '  -  ' . $date . ' ' . $row["name"] . '  ' .'<br>';
         
         if($row["kategoria"] == "kilta"){
-            $guildEvents["title"] = $row["name"] . ' ' . $date;
-            $guildEvents["event"] = $row["description"];
+            $element = array();
+            $element["title"] = $row["name"] . ' ' . $date;
+            $element["event"] = $row["description"];
+            array_push($guildEvents, $element);
+            if($row["attachment"] != NULL){
+                array_push($attachments, $row["attachment"]);
+            }
         }
         
         if($row["kategoria"] == "muu"){
-            array_push($otherEvents, $row["name"] . ' ' . $date);
+            $element = array();
+            $element["title"] = $row["name"] . ' ' . $date;
+            $element["event"] = $row["description"];
+            array_push($otherEvents, $element);
+            if($row["attachment"] != NULL){
+                array_push($attachments, $row["attachment"]);
+            }
         }
         
         if($row["kategoria"] == "ylim"){
-            array_push($misc, $row["name"]);
+            $element = array();
+            $element["title"] = $row["name"];
+            $element["event"] = $row["description"];
+            array_push($misc, $element);
+            if($row["attachment"] != NULL){
+                array_push($attachments, $row["attachment"]);
+            }
         }
         
         
     }
 }
 
-
 $titleHeader = '';
 $eventTexts = '';
 
 // construct the header and add the events to the main text
+// Header format is rather exact so it is usable as is for TG functionality
 
 $i = 1;
 
-$titleHeader .= '<b>Killan tapahtumat // Guild\'s events</b>' . '<br><br>';
+$titleHeader .= '<b>Killan tapahtumat // Guild\'s events</b>' . "\n\n";
 
 foreach ($guildEvents as $event){
-    $titleHeader .= $i . '. ' . $event["title"] . '<br>';
-    $eventTexts .= '<br><br><b>' . $i . '. ' . $title . '</b>'. '<br>'
-            . '<br>' .
-            $event["event"] . '<br><br>' . '---------------';    
+    $titleHeader .= $i . '. ' . $event["title"] . "\n";
+    $result = $event["event"];
+    $eventTexts .= "\n\n<b>" . $i . '. ' . $event["title"]
+            . '</b>'. "\n"
+            . "\n" .
+            $result . "\n\n" . '---------------';    
     $i++;
 }
 
-$titleHeader .= '<br>' . '<b>Muut tapahtumat // Other events</b>' . '<br><br>';
+$titleHeader .= "\n" . '<b>Muut tapahtumat // Other events</b>' . "\n\n";
 
-foreach ($otherEvents as $title){
-    $titleHeader .= $i . '. ' . $title . '<br>';
+foreach ($otherEvents as $event){
+    $titleHeader .= $i . '. ' . $event["title"] . "\n";
+    $result = $event["event"];
+    $eventTexts .= "\n\n<b>" . $i . '. ' . $event["title"]
+            . '</b>'. "\n"
+            . "\n" .
+            $result . "\n\n" . '---------------';    
     $i++;
 }
 
-$titleHeader .= '<br>' . '<b>Muuta // Misc.</b>' . '<br><br>';
+$titleHeader .= "\n" . '<b>Muuta // Misc.</b>' . "\n\n";
 
-foreach ($misc as $title){
-    $titleHeader .= $i . '. ' . $title . '<br>';
+foreach ($misc as $event){
+    $titleHeader .= $i . '. ' . $event["title"] . "\n";
+    $result = $event["event"];
+    $eventTexts .= "\n\n<b>" . $i . '. ' . $event["title"]
+            . '</b>'. "\n"
+            . "\n" .
+            $result . "\n\n" . '---------------';    
     $i++;
 }
 
+echo $attachments[0] . $attachments[1] . '<br>';
 
-
-echo $titleHeader;
-echo $eventTexts;
+$mailtext = $_POST["footer"] . "\n--------------\n\n" . $titleHeader . "\n--------------" . $eventTexts;
 
 ?>
