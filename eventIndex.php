@@ -24,8 +24,7 @@
         
         session_start();
         
-        $_SESSION["dbUser"] = $username;
-        $_SESSION["dbPW"] = $password;
+        $_SESSION["db"] = $conn;
         
         ?>
     <br>
