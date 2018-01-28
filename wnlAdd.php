@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if($_SESSION["user"] != NULL){
+    
+    include 'navigation.php';
+
 ?>
 
 
@@ -16,3 +21,9 @@ session_start();
     Text: <textarea name="text" rows="30" cols="150"></textarea><br>
 
 <input type="submit">
+
+<?php
+
+} else {
+    include 'index.php';
+}
