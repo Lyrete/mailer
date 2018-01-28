@@ -1,17 +1,41 @@
+<style><?php include 'styles.css'?></style>
+
 <?php
-ini_set('file_uploads', 'On');
+
+require 'database.php';
+
+session_start();
+
+$_SESSION["dbAccess"] = new DB();
+
+$db = $_SESSION["dbAccess"]
+
 ?>
 
-<form action="sent.php" method="post" enctype="multipart/form-data">
-Sender: <input type="text" name="sender"><br>
-Receiver: <input type="text" name="receiver"><br>
-Subject: <input style="width:400px" type="text" name="subject"><br>
-Attachment #1: <input type="file" name="fileToUpload1" id="fileToUpload1"><br>
-Attachment #2: <input type="file" name="fileToUpload2" id="fileToUpload2"><br>
-When to send: <input type="time" name="timeToSend" id="timeToSend"><br>
+<head>
+    <body>  
+        <?php include 'navigation.php' ?>
+                
+        <div class="loginForm">
+            <?php
+            if(isset($_POST["user"]) and isset($_POST["pw"])){
+                if($db->validateUser($_POST["user"], $_POST["pw"])){
+                    echo 'Logged in';
+                    $_SESSION["user"] = $db->getUser($_POST["user"], $_POST["pw"]);
+                } else {
+                    echo 'Wrong username or password. Try again.';
+                    $_SESSION["user"] = NULL;
+                }
+            }
+            ?>
+    <form action="index.php" method="post">
+        User: <input type="text" name="user"><br>
+        Password: <input type="password" name="pw"><br>
+        <input type="submit" value="Login">
+    </form>
+        </div>
+    
+    
 
-<br>
-
-Text: <textarea name="text" rows="50" cols="200"></textarea><br>
-
-<input type="submit">
+    </body>
+</head>
