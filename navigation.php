@@ -13,5 +13,6 @@
 <div class="links">
     <div class="pagePart"><a href ="wnlAdd.php">Add events</a></div>
     <div class="pagePart"><a href ="finalMail.php">Construct the newsletter</a></div>
+    <div class="pagePart"><a href="TGmsg.php">Send a TG message</a></div>
 </div>
 
