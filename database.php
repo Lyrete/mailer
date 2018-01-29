@@ -10,11 +10,13 @@ class DB{
     
     function __construct(){
         $this->conn = mysqli_connect('localhost', 'dbConnect', 'connectsalainen','newsletter');
-        $this->conn->set_charset('utf-8');
+        mysqli_set_charset($this->conn, 'utf8');
     }
     
     function getRow($sql){
-        mysqli_query($this->conn, $sql);
+        $result = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        return $row;
     }
     
     function validateUser($user, $pw){
@@ -45,6 +47,38 @@ class DB{
         $wholeresult = mysqli_fetch_all($result,MYSQLI_ASSOC);
         
         return $wholeresult;
+    }
+    
+    function getBotApi(){
+        $sql = 'SELECT * FROM bots WHERE name LIKE \'TiedotusBot\'';
+        $bot = $this->getRow($sql);
+        
+        return $bot["apikey"];
+    }
+    
+    function addFullLetter($text, $week, $filename, $attachments){
+        $finalText = '';
+        for ($i = 0; $i < strlen($text); $i++){
+    
+            if($text[$i] == "'"){                                // adds a \ before ' symbols because of problems otherwise
+                $finalText .= "\'";                               
+            } else {
+                $finalText .= $text[$i];
+            }
+        }
+        
+        $sql = 'INSERT INTO letters (week, created, contents, filename, attachments)' .
+                "VALUES ('" . $week . "','" .
+                date('Y-m-d') . "','" . $finalText . "','" . $filename . "','" . $attachments . "');";
+        $result = mysqli_query($this->conn, $sql);
+        return $result;
+    }
+    
+    function getPublishedLetterURL($week){
+        $sql = 'SELECT * FROM letters WHERE week=' . $week;
+        $letter = $this->getRow($sql);
+        
+        return $letter["filename"];
     }
 }
 
