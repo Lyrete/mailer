@@ -2,13 +2,11 @@
 
 <?php
 
-require 'database.php';
+require_once 'database.php';
 
 session_start();
 
-$_SESSION["dbAccess"] = new DB();
-
-$db = $_SESSION["dbAccess"]
+$db = new DB();
 
 ?>
 
