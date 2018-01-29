@@ -1,8 +1,12 @@
 <?php
 
-require 'database.php';
+
+
+require_once 'database.php';
+
 
 $db = new DB();
+
 
 $sql = "SELECT * FROM event ORDER BY startDate";
 
@@ -16,13 +20,18 @@ $misc = array();
 
 $attachments = array();
 
+$week = $_POST["week"];
+
+$deadline = new DateTime();
+$deadline->setISODate(date('Y',strtotime('today')), $week);
+$deadline->add(date_interval_create_from_date_string('28 days'));
+
 foreach ($wholeresult as $row){
-    if($row["startDate"] > date('Y-m-d')){
-        
-        $date = date('j.n',strtotime($row["startDate"]));
+    if($row["startDate"] > date('Y-m-d') and strtotime($row["startDate"]) < strtotime($deadline->format('Y-m-d'))){
+        $date = date('j.n.',strtotime($row["startDate"]));
         
         if ( $row["endDate"] != '0000-00-00' and $row["endDate"] != NULL){
-            $date .= '-' . date('j.n',strtotime($row["endDate"]));
+            $date .= '-' . date('j.n.',strtotime($row["endDate"]));
         }
         
 //        echo $row["kategoria"] . '  -  ' . $date . ' ' . $row["name"] . '  ' .'<br>';
@@ -105,8 +114,10 @@ foreach ($misc as $event){
     $i++;
 }
 
-echo $attachments[0] . $attachments[1] . '<br>';
 
-$mailtext = $_POST["footer"] . "\n--------------\n\n" . $titleHeader . "\n--------------" . $eventTexts;
+$footer = rtrim($_POST["footer"]);
+
+$mailtext = $footer . "\n\n--------------\n\n" . $titleHeader . "\n--------------" . $eventTexts;
+
 
 ?>
