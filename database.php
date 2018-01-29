@@ -19,6 +19,24 @@ class DB{
         return $row;
     }
     
+    function insertIfNotIn($channel, $name){
+        //first check if returns something
+        $sql = "SELECT * FROM TGchannels WHERE channel LIKE '" 
+                . $channel . "';";
+        $result = $this->getRow($sql);
+        
+        if($result["id"] == NULL){
+            $sql = "INSERT INTO TGchannels (name, selecterName, channel) "
+                    . "VALUES ('" . $name . "','" . $name . "','" . $channel . "');";
+            $this->conn->query($sql);
+            echo 'Channel ' . $name . ' added to Database!';
+            return TRUE;
+        }else{
+            echo 'Channel ' . $name . ' already in Database!';
+            return FALSE;
+        }
+    }
+    
     function validateUser($user, $pw){
         $sql = 'SELECT * FROM users WHERE user LIKE\'' . $user . '\' and pw LIKE \'' . $pw . '\';';
         $q = mysqli_query($this->conn, $sql);
@@ -55,7 +73,7 @@ class DB{
         
         return $bot["apikey"];
     }
-    
+        
     function addFullLetter($text, $week, $filename, $attachments){
         $finalText = '';
         for ($i = 0; $i < strlen($text); $i++){
@@ -69,7 +87,7 @@ class DB{
         
         $sql = 'INSERT INTO letters (week, created, contents, filename, attachments)' .
                 "VALUES ('" . $week . "','" .
-                date('Y-m-d') . "','" . $finalText . "','" . $filename . "','" . $attachments . "');";
+                date('Y-m-d H:i:s') . "','" . $finalText . "','" . $filename . "','" . $attachments . "');";
         $result = mysqli_query($this->conn, $sql);
         return $result;
     }
