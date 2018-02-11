@@ -19,6 +19,10 @@ class DB{
         return $row;
     }
     
+    function query($sql){
+        return mysqli_query($this->conn, $sql);
+    }
+    
     function insertIfNotIn($channel, $name){
         //first check if returns something
         $sql = "SELECT * FROM TGchannels WHERE channel LIKE '" 
