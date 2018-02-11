@@ -29,7 +29,7 @@ $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $result = curl_exec($ch);
 
-//echo $result . '<br><br>';
+echo $result . '<br><br>';
 $jsonObject = json_decode($result);
 $array = $jsonObject->result;
 
@@ -38,7 +38,7 @@ foreach($array as $a){
     $name = $a->message->chat->title;
     if($db->insertIfNotIn($channel, $name)){
         //If channel wasn't in db send welcome msg.
-        $message = "Added to database!\nWelcome!";
+        $message = "Welcome!\nYou will now start receiving newsletter notifications!";
         $method = '/sendMessage';
         $url = $urlStart . $method . '?chat_id=' . $channel . '&text=' . urlencode($message);
         $ch = curl_init($url);
