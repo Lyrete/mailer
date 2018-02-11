@@ -1,7 +1,17 @@
 <?php
 
+
+
+session_start();
+
+if($_SESSION["user"] != NULL){
+    
+    include 'navigation.php';
+
+
 require 'Event.php';
 require 'values.php';
+require 'database.php';
 
 $text = $_POST["text"];
 
@@ -14,8 +24,6 @@ $start = $_POST["startDate"];
 $end = $_POST["endDate"];
 
 $eventType = $_POST["eventType"];
-
-session_start();
 
 for ($i = 0; $i < strlen($text); $i++){
     
@@ -41,20 +49,8 @@ $sqlstring = "INSERT INTO event (name, startDate, endDate, description, kategori
         . " VALUES ('" . $finalEvent . "','" . $start . "','" . $end . "','" .
         $finalText . "','" . $eventType . "')";
 
-$conn = mysqli_connect('localhost', $_SESSION["dbUser"], $_SESSION["dbPW"],'newsletter');
-$conn->set_charset('utf8');
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-echo "Connected successfully<br>";
-
-$result = $conn->query($sqlstring);
-
-echo $result;
-
-
+$db = new DB();
+$db->query($sqlstring);
 
 ////TG message functionality
 //
@@ -78,11 +74,16 @@ echo $result;
 //    curl_exec($ch);
 //}        
 //
-//?>
+//
+?>
 
 
 
 <form action="wnlAdd.php" method="post">
     Added.<br>
-<input type="submit" value="Back">
+    <input type="submit" value="Back"></form>
+
+<?php
+
+    }?>
 
