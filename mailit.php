@@ -40,7 +40,8 @@ try {
 //    $mail->addBCC($values->bcc);
 
     //Attachments
-    for($i=0; $i < sizeof($attachments); $i++){    
+    for($i=0; $i < sizeof($attachments); $i++){
+        echo __DIR__ . $attachments[$i];
         try{
             $mail->addAttachment(__DIR__ . $attachments[$i]);         // Add attachments
         }catch (Exception $e){

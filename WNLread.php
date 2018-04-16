@@ -12,5 +12,5 @@ $db = new DB();
 ?>
 
 <center>
-<?php include $db->getPublishedLetterURL(5);?>
+<?php include $db->getPublishedLetterURL(7);?>
 </center>

@@ -59,26 +59,26 @@ if(isset($_POST["sender"])==TRUE){
     
     $zippath = 'WNL/attachments/WNL' . $_POST["week"] . '.zip';  
     
-    echo $zippath;
-    
-    $zip = new ZipArchive();
-       
-    if ($zip->open($zippath, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE) === TRUE){
-        echo 'are we here?';
-        // Add files to the zip file
-        for($i=0; $i < sizeof($attachments); $i++){ 
-            echo 'this too?';
-            $zip->addFile(substr($attachments[$i],1), substr($attachments[$i],13));         // Add attachments to zip            
-        }      
-        // All files are added, so close the zip file.
-        $zip->close();
-    }
-    
-    chmod($zippath, 0775);
+//    echo $zippath;
+//    
+//    $zip = new ZipArchive();
+//       
+//    if ($zip->open($zippath, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE) === TRUE){
+//        echo 'are we here?';
+//        // Add files to the zip file
+//        for($i=0; $i < sizeof($attachments); $i++){ 
+//            echo 'this too?';
+//            $zip->addFile(substr($attachments[$i],1), substr($attachments[$i],13));         // Add attachments to zip            
+//        }      
+//        // All files are added, so close the zip file.
+//        $zip->close();
+//    }
+//    
+//    chmod($zippath, 0775);
     
     echo $db->addFullLetter($mailtext, $week, $filename, $zippath);
     
-//    include 'mailit.php';
+    include 'mailit.php';
 }
 
 } else {
