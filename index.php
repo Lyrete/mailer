@@ -21,7 +21,7 @@ $db = new DB();
             if(isset($user) and isset($pw)){
                 if($db->validateUser($user, $pw)){
                     echo 'Logged in';
-                    $_SESSION["user"] = $db->getUser($user, $pw);
+                    $_SESSION["user"] = $db->getUser($user);
                 } else {
                     echo 'Wrong username or password. Try again.';
                     $_SESSION["user"] = NULL;

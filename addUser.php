@@ -21,8 +21,11 @@ Add a new user<br>
 $user = filter_input(INPUT_POST, 'user');
 $pw = filter_input(INPUT_POST, 'pw');
 
-if(isset($user)){
+if(isset($user) && !$db->getUser($user)){
     $db->addUser($user, $pw);
+    echo "User " . $user . " added!";
+} else {
+    echo "User " . $user . " already exists, pick another name!";
 }
 
 } else {

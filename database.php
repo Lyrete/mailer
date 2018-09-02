@@ -42,19 +42,21 @@ class DB{
     }
     
     function validateUser($user, $pw){
-        $sql = 'SELECT * FROM users WHERE user LIKE\'' . $user . '\' and pw LIKE \'' . $pw . '\';';
+        $sql = 'SELECT * FROM users WHERE user LIKE\'' . $user . '\' ;';
         $q = mysqli_query($this->conn, $sql);
         $result = mysqli_fetch_assoc($q);
         
         if(sizeof($result) == 3){
-            return TRUE;
+            if(password_verify($pw, $result["pw"])){
+                return TRUE;
+            }
         } 
         
         return FALSE;    
     }
     
-    function getUser($user, $pw){
-        $sql = 'SELECT * FROM users WHERE user LIKE\'' . $user . '\' and pw LIKE \'' . $pw . '\';';
+    function getUser($user){
+        $sql = 'SELECT * FROM users WHERE user LIKE\'' . $user . '\' ;';
         $q = mysqli_query($this->conn, $sql);
         $result = mysqli_fetch_assoc($q);
         
