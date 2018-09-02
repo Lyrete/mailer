@@ -9,9 +9,9 @@ if($_SESSION["user"] != NULL){
     include 'navigation.php';
 
 
-require 'Event.php';
+require_once 'Event.php';
 //require 'values.php';
-require 'database.php';
+require_once 'database.php';
 
 $text = $_POST["text"];
 
