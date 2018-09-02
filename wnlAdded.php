@@ -45,9 +45,19 @@ for ($i = 0; $i < strlen($_POST["subject"]); $i++){
     }
 }
 
-$sqlstring = "INSERT INTO event (name, startDate, endDate, description, kategoria)"
-        . " VALUES ('" . $finalEvent . "','" . $start . "','" . $end . "','" .
-        $finalText . "','" . $eventType . "')";
+$sqlstring = "INSERT INTO event (name, startDate, ";
+if(!($end == '')){
+    $sqlstring .= "endDate,";
+}
+        
+$sqlstring .= "description, kategoria)" . " VALUES ('" . $finalEvent . "','" . $start . "',";
+
+if(!($end == '')){
+    $sqlstring .= "'" . $end . "',";
+}
+
+        
+$sqlstring .= "'" . $finalText . "','" . $eventType . "')";
 
 $db = new DB();
 $db->query($sqlstring);
