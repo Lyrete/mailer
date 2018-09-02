@@ -36,6 +36,7 @@ foreach ($wholeresult as $row){
         
         if($row["kategoria"] == "kilta"){
             $element = array();
+            if($row["id"] == 80){$date = null;} //purkka päivän poisto homonaamasta
             $element["title"] = $row["name"] . ' ' . $date;
             $element["event"] = $row["description"];
             array_push($guildEvents, $element);
