@@ -10,7 +10,7 @@ if($_SESSION["user"] != NULL){
 
 
 require 'Event.php';
-require 'values.php';
+//require 'values.php';
 require 'database.php';
 
 $text = $_POST["text"];
