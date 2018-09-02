@@ -16,10 +16,12 @@ $db = new DB();
                 
         <div class="loginForm">
             <?php
-            if(isset($_POST["user"]) and isset($_POST["pw"])){
-                if($db->validateUser($_POST["user"], $_POST["pw"])){
+            $user = filter_input(INPUT_POST, 'user');
+            $pw = filter_input(INPUT_POST, 'pw');
+            if(isset($user) and isset($pw)){
+                if($db->validateUser($user, $pw)){
                     echo 'Logged in';
-                    $_SESSION["user"] = $db->getUser($_POST["user"], $_POST["pw"]);
+                    $_SESSION["user"] = $db->getUser($user, $pw);
                 } else {
                     echo 'Wrong username or password. Try again.';
                     $_SESSION["user"] = NULL;

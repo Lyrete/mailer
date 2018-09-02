@@ -61,6 +61,12 @@ class DB{
         return $result["id"];
     }
     
+    //adds a new user
+    function addUser($user, $pw){
+        $sql = "INSERT INTO users (user, pw) VALUES ('" . $user . "','" . password_hash($pw, PASSWORD_BCRYPT) . "');";
+        $this->conn->query($sql);
+    }
+    
     //returns all rows with the sql query
     
     function getWholeResult($sql){
