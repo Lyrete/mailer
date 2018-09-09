@@ -110,5 +110,22 @@ class DB{
         
         return $letter["filename"];
     }
+    
+    function addHeader($text, $lng){
+        $finalText = '';
+        for ($i = 0; $i < strlen($text); $i++){
+    
+            if($text[$i] == "'"){                                // adds a \ before ' symbols because of problems otherwise
+                $finalText .= "\'";                               
+            } else {
+                $finalText .= $text[$i];
+            }
+        }
+        
+        $sql = 'INSERT INTO header (headerText, date, lng)' .
+                "VALUES ('" . $finalText . "','" . date('Y-m-d H:i:s') . "','" . $lng . "');";
+        $result = mysqli_query($this->conn, $sql);
+        return $result;
+    }
 }
 

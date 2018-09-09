@@ -16,5 +16,6 @@ require_once 'database.php'
     <div class="pagePart"><a href ="finalMail.php">Construct the newsletter</a></div>
     <div class="pagePart"><a href="TGmsg.php">Send a TG message</a></div>
     <div class="pagePart"><a href="addUser.php">User management</a></div>
+    <div class="pagePart"><a href="addHeader.php">Header insertion</a></div>
 </div>
 
