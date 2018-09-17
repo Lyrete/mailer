@@ -21,7 +21,9 @@ if($_SESSION["user"] != NULL){
 $text = filter_input(INPUT_POST, 'text');
 $lng = filter_input(INPUT_POST, 'lng');
 
-$db->addHeader($text, $lng);
+if($text != ''){
+    $db->addHeader($text, $lng);
+}
 
 } else {
     include 'index.php';
