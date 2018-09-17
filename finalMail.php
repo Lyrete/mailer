@@ -47,7 +47,7 @@ if(isset($_POST["sender"])==TRUE){
     
     include 'construct.php';
        
-    $filename = 'WNL/wnl_' . $_POST["week"] . '.html';
+    $filename = './WNL/wnl_' . $_POST["week"] . '.html';
     
     $file = fopen($filename, 'w');
     
