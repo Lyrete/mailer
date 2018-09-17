@@ -12,10 +12,10 @@ require_once 'database.php'
 <style><?php include 'styles.css'; ?></style>
 
 <div class="links">
-    <div class="pagePart"><a href ="wnlAdd.php">Add events</a></div>
-    <div class="pagePart"><a href ="finalMail.php">Construct the newsletter</a></div>
-    <div class="pagePart"><a href="TGmsg.php">Send a TG message</a></div>
-    <div class="pagePart"><a href="addUser.php">User management</a></div>
-    <div class="pagePart"><a href="addHeader.php">Header insertion</a></div>
+    <a href ="wnlAdd.php"><div class="pagePart">Add events</div></a>
+    <a href ="finalMail.php"><div class="pagePart">Construct the newsletter</div></a>
+    <a href="TGmsg.php"><div class="pagePart">Send a TG message</div></a>
+    <a href="addUser.php"><div class="pagePart">User management</div></a>
+    <a href="addHeader.php"><div class="pagePart">Header insertion</div></a>
 </div>
 
