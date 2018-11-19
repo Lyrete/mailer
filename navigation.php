@@ -11,6 +11,10 @@ require_once 'database.php'
 
 <style><?php include 'styles.css'; ?></style>
 
+<head>
+    <title>Newsletter CP</title>
+</head>
+
 <div class="links">
     <a href ="wnlAdd.php"><div class="pagePart">Add events</div></a>
     <a href ="finalMail.php"><div class="pagePart">Construct the newsletter</div></a>
