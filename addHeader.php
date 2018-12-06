@@ -1,8 +1,9 @@
 <?php
+include_once "userPDO.php";
 session_start();
 
 if($_SESSION["user"] != NULL){
-    
+
     include 'navigation.php';
     $db = new DB();
 
@@ -10,7 +11,7 @@ if($_SESSION["user"] != NULL){
 
 <form action="addHeader.php" method="post">
     Text: <textarea name="text" rows="30" cols="150" required></textarea><br>
-    Language: 
+    Language:
     <input type="radio" name="lng" value="fi" required>fi
     <input type="radio" name="lng" value="eng">eng
     <input type="submit" value="Add header">
@@ -28,4 +29,3 @@ if($text != ''){
 } else {
     include 'index.php';
 }
-
