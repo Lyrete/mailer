@@ -48,8 +48,12 @@ class eventFetcher{
         }
     }
 
-    function getAllEvents(){
-        $sql = "SELECT * FROM event";
+    function getAllEvents($sort){
+        if($sort == "date"){
+          $sql = "SELECT * FROM event ORDER BY startDate DESC";
+        }else{
+          $sql = "SELECT * FROM event";
+        }
         $q = $this->pdo->prepare($sql);
         $q->execute();
 
