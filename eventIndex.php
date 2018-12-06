@@ -25,7 +25,8 @@ if($_SESSION["user"] != NULL){
     foreach ($events as $event){
         echo "<tr><td>";
         echo $event->getStartDate() . "</td><td>";
-        echo $event->getName();
+        echo "<a href='eventManager.php?id=" . $event->getId() . "'>";
+        echo $event->getName() . "</a>";
         echo "</td></tr>";
     }
 
