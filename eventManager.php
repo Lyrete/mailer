@@ -16,7 +16,8 @@ if($_SESSION["user"] != NULL){
 
     ?>
 
-    <form>
+    <form method="post" action="<?php $eventFetcher->updateEvent($event) ?>">
+      <input type=hidden name="id" value="<?php echo $event->getId() ?>">
       <table>
       <tr>
         <td>Nimi</td>
@@ -44,6 +45,10 @@ if($_SESSION["user"] != NULL){
            ?>
 
         </select></td>
+      </tr>
+      <tr>
+        <td>Attachments</td>
+        <td>PLACEHOLDER</td>
       </tr>
       <tr>
         <td>Description</td>
