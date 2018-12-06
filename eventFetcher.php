@@ -66,4 +66,18 @@ class eventFetcher{
         return $events;
     }
 
+    function updateEvent($event){
+        if(isset($_POST["text"])){
+            $event->setName(filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING))
+            $event->setStartDate(filter_input(INPUT_POST, "startDate", FILTER_SANITIZE_STRING));
+            $event->setEndDate(filter_input(INPUT_POST, "endDate", FILTER_SANITIZE_STRING));
+            $event->setDescription(filter_input(INPUT_POST, "text", FILTER_SANITIZE_STRING));
+            $event->setKategoria(filter_input(INPUT_POST, "kategoria", FILTER_SANITIZE_STRING));
+        }
+
+        $sql = "UPDATE event SET startDate = ?, endDate = ?, description = ?, kategoria = ? WHERE id = ?";
+        $q = $this->pdo->prepare($sql);
+        $q->execute(array($event->getStartDate(), $event->getEndDate(), $event->getDescription(), $event->getKategoria(), $event->getId()));
+    }
+
 }
