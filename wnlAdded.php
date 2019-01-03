@@ -1,17 +1,22 @@
 <?php
-
-
-
+include_once 'userPDO.php';
 session_start();
 
+
+
 if($_SESSION["user"] != NULL){
-    
+
     include 'navigation.php';
 
+    $db = new DB();
 
-require_once 'Event.php';
+
+require_once 'Event0.php';
 //require 'values.php';
 require_once 'database.php';
+require_once 'eventFetcher.php';
+
+$eventFetcher = new eventFetcher();
 
 $text = $_POST["text"];
 
@@ -26,9 +31,9 @@ $end = $_POST["endDate"];
 $eventType = $_POST["eventType"];
 
 for ($i = 0; $i < strlen($text); $i++){
-    
+
     if($text[$i] == "'"){                                // adds a \ before ' symbols because of problems otherwise
-        $finalText .= "\'";                               
+        $finalText .= "\'";
     } else {
         $finalText .= $text[$i];
     }
@@ -37,30 +42,53 @@ for ($i = 0; $i < strlen($text); $i++){
 $finalEvent = '';
 
 for ($i = 0; $i < strlen($_POST["subject"]); $i++){
-    
+
     if($_POST["subject"][$i] == "'"){                                // adds a \ before ' symbols because of problems otherwise
-        $finalEvent .= "\'";                               
+        $finalEvent .= "\'";
     } else {
         $finalEvent .= $_POST["subject"][$i];
     }
 }
 
-$sqlstring = "INSERT INTO event (name, startDate, ";
-if(!($end == '')){
-    $sqlstring .= "endDate,";
+$event = new Event();
+$event->setKategoria($eventType);
+$event->setStartDate($start);
+$event->setEndDate($end);
+$event->setDescription($finalText);
+$event->setName($finalEvent);
+
+$eventFetcher->addEvent($event);
+
+//INSERT INTO event (name, startDate,
+
+// $sqlstring = "INSERT INTO event (name, startDate)";
+//
+// $sqlstring .= "description, kategoria)" . " VALUES ('" . $finalEvent . "','" . $start . "',";
+//
+// if(!($end == '')){
+//     $sqlstring .= "'" . $end . "',";
+// }
+//
+//
+// $sqlstring .= "'" . $finalText . "','" . $eventType . "')";
+//
+// $db = new DB();
+// $db->query($sqlstring);
+
+
+?>
+
+
+
+<form action="wnlAdd.php" method="post">
+    Added.<br>
+    <input type="submit" value="Back"></form>
+
+<?php
+
+}else{
+  include "index.php";
 }
-        
-$sqlstring .= "description, kategoria)" . " VALUES ('" . $finalEvent . "','" . $start . "',";
-
-if(!($end == '')){
-    $sqlstring .= "'" . $end . "',";
-}
-
-        
-$sqlstring .= "'" . $finalText . "','" . $eventType . "')";
-
-$db = new DB();
-$db->query($sqlstring);
 
 ////TG message functionality
 //
@@ -82,18 +110,6 @@ $db->query($sqlstring);
 //} else {
 //    $ch = curl_init($url . urlencode($text));
 //    curl_exec($ch);
-//}        
+//}
 //
 //
-?>
-
-
-
-<form action="wnlAdd.php" method="post">
-    Added.<br>
-    <input type="submit" value="Back"></form>
-
-<?php
-
-    }?>
-
