@@ -10,6 +10,9 @@ if($_SESSION["user"] != NULL){
 
 $userPDO = new UserPDO();
 
+?>
+<a href="merin_Testamentti_newpw.pdf"><img src="pdfIcon.png" height="20px"> Merin vanha testamentti uusilla salasanoilla.</a><br><br>
+<?php
 echo "under construction.";
 }else{
     include 'index.php';
