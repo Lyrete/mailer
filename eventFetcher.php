@@ -77,9 +77,9 @@ class eventFetcher{
 
         //bad fix for broken endDates
 
-        if($event->getEndDate() < 0){
+        if($event->getEndDate() == ""){
             $event->setEndDate(NULL);
-        };
+        }
 
         $sql = "UPDATE event SET startDate = ?, endDate = ?, description = ?, kategoria = ? WHERE id = ?";
         $q = $this->pdo->prepare($sql);
