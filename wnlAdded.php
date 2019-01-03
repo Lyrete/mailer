@@ -24,10 +24,10 @@ $finalText = '';
 
 //POST dates from wnlAdd.php
 //and conversion to Date objects for easy comparing
-
 $start = $_POST["startDate"];
-if(isset($_POST["endDate"])){
+if($_POST["endDate"] > 0){
     $end = $_POST["endDate"];
+    echo $end;
 }else{
     $end = NULL;
 }
