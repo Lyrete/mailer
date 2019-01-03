@@ -29,11 +29,10 @@ if(isset($_SESSION["user"])){
     <a href ="wnlAdd.php"><div class="pagePart">Add events</div></a>
     <a href ="eventIndex.php"><div class="pagePart">Manage events</div></a>
 <!--    <a href="TGmsg.php"><div class="pagePart">Send a TG message</div></a>-->
-<?php if($user->getUsr_lvl() == "admin"){?>
     <a href="userManager.php"><div class="pagePart">User management</div></a>
-<?php }?>
     <a href="addHeader.php"><div class="pagePart">Header insertion</div></a>
     <a href ="finalMail.php"><div class="pagePart">Construct the newsletter</div></a>
+    <a href="FAQ.php"><div class="pagePart">Help</div></a>
 </div>
 
 <?php }?>
