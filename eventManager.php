@@ -16,6 +16,10 @@ if($_SESSION["user"] != NULL){
 
     ?>
 
+    <form method="post" action="deleteEvent.php?id=<?php echo $event->getId() ?>" onsubmit="return confirm('Are you sure you want to delete the event?');">
+      <input type=submit value="Delete the Event">
+    </form>
+
     <form method="post" action="<?php $eventFetcher->updateEvent($event) ?>">
       <input type=hidden name="id" value="<?php echo $event->getId() ?>">
       <table>
