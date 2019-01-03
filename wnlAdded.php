@@ -27,7 +27,6 @@ $finalText = '';
 $start = $_POST["startDate"];
 if($_POST["endDate"] > 0){
     $end = $_POST["endDate"];
-    echo $end;
 }else{
     $end = NULL;
 }
