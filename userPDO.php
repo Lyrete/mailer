@@ -43,9 +43,19 @@ class UserPDO{
 
         if(password_verify($pw, $this->getUser($user)->getPw())){ //checks for the hashed pw
             return TRUE;
+        }else if($pw = $this->getUser($user)->getPw()){ //checks for a plain text pw for testing
+            return TRUE;
         }
 
         return FALSE;
+    }
+
+    function updateUser($username, $user){
+        $id = $this->getUser($username)->getId();
+
+        $sql = "UPDATE users SET user = ?, name = ?, usr_lvl = ?, email = ?, pw = ? WHERE id = ?";
+        $q = $this->pdo->prepare($sql);
+        $q->execute(array($user->getUser(), $user->getName(), $user->getUsr_lvl(), $user->getEmail(), $user->getPw(), $user->getId()));
     }
 }
 
