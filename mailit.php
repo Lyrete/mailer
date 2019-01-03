@@ -1,6 +1,6 @@
 <?php
 
-include 'userPDO.php';
+include_once 'userPDO.php';
 $user = $_SESSION["user"];
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -35,7 +35,7 @@ try {
     $mail->CharSet = 'utf-8';
 
     //Recipients
-    $mail->setFrom($_POST["sender"], $user->name);
+    $mail->setFrom($_POST["sender"], $user->getName());
     $mail->addAddress($_POST["receiver"]);     // Add a recipient
 //    $mail->addAddress('ellen@example.com');               // Name is optional
 //    $mail->addReplyTo('info@example.com', 'Information');
