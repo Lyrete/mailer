@@ -1,8 +1,9 @@
 <?php
+include 'userPDO.php';
 session_start();
 
 if($_SESSION["user"] != NULL){
-    
+
     include 'navigation.php';
 
 ?>
