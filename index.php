@@ -14,7 +14,7 @@ session_start();
 
 <head>
     <body>
-        <?php include 'navigation.php' ?>
+        <?php  ?>
 
 
             <?php
@@ -22,8 +22,8 @@ session_start();
             $pw = filter_input(INPUT_POST, 'pw');
             if(isset($user) and isset($pw)){
                 if($userPDO->validateUser($user, $pw)){
-                    echo 'Logged in as ' . $userPDO->getUser($user)->getName();
                     $_SESSION["user"] = $userPDO->getUser($user);
+                    include 'navigation.php';
                 } else {
                     echo 'Wrong username or password. Try again.';
                     $_SESSION["user"] = NULL;
