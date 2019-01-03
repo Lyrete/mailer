@@ -1,5 +1,8 @@
 <?php
 
+include 'userPDO.php';
+$user = $_SESSION["user"];
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -9,7 +12,7 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -32,7 +35,7 @@ try {
     $mail->CharSet = 'utf-8';
 
     //Recipients
-    $mail->setFrom($_POST["sender"], 'Tommi Alajoki');
+    $mail->setFrom($_POST["sender"], $user->name);
     $mail->addAddress($_POST["receiver"]);     // Add a recipient
 //    $mail->addAddress('ellen@example.com');               // Name is optional
 //    $mail->addReplyTo('info@example.com', 'Information');
