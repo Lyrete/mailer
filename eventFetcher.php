@@ -68,7 +68,7 @@ class eventFetcher{
 
     function updateEvent($event){
         if(isset($_POST["text"])){
-            $event->setName(filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING))
+            $event->setName(filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING));
             $event->setStartDate(filter_input(INPUT_POST, "startDate", FILTER_SANITIZE_STRING));
             $event->setEndDate(filter_input(INPUT_POST, "endDate", FILTER_SANITIZE_STRING));
             $event->setDescription(filter_input(INPUT_POST, "text", FILTER_SANITIZE_STRING));
