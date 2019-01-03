@@ -26,7 +26,11 @@ $finalText = '';
 //and conversion to Date objects for easy comparing
 
 $start = $_POST["startDate"];
-$end = $_POST["endDate"];
+if(isset($_POST["endDate"])){
+    $end = $_POST["endDate"];
+}else{
+    $end = NULL;
+}
 
 $eventType = $_POST["eventType"];
 

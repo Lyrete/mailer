@@ -89,7 +89,11 @@ class eventFetcher{
     function addEvent($event){
         $sql = "INSERT INTO event (name, startDate, endDate, kategoria, description) VALUES (?,?,?,?,?)";
         $q = $this->pdo->prepare($sql);
-        $q->execute(array($event->getName(), $event->getStartDate(), $event->getEndDate(), $event->getKategoria(), $event->getDescription()));
+        try{
+          $q->execute(array($event->getName(), $event->getStartDate(), $event->getEndDate(), $event->getKategoria(), $event->getDescription()));
+        } catch (PDOException $e){
+            echo "Something went wrong: " . $e->getMessage();
+        }
     }
 
 }
