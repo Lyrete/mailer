@@ -80,4 +80,24 @@ class eventFetcher{
         $q->execute(array($event->getStartDate(), $event->getEndDate(), $event->getDescription(), $event->getKategoria(), $event->getId()));
     }
 
+    function deleteEvent($id){
+        $sql = "DELETE FROM events WHERE id = ?";
+        $q = $this->pdo->prepare($sql);
+        $q->execute(array($id));
+
+        $link = "http://";
+
+        // Append the host(domain name, ip) to the URL.
+        $link .= $_SERVER['HTTP_HOST'];
+
+        // Append the requested resource location to the URL
+        $link .= $_SERVER['REQUEST_URI'];
+
+        header('Location:' . $link . ' ')
+    }
+
+    function addEvent($event){
+      
+    }
+
 }
