@@ -10,6 +10,8 @@ if($_SESSION["user"] != NULL){
 
 $userPDO = new UserPDO();
 
-echo "under construction."
-
+echo "under construction.";
+}else{
+    include 'index.php';
+};
 ?>
