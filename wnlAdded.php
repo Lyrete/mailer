@@ -57,8 +57,8 @@ $event = new Event();
 $event->setKategoria($eventType);
 $event->setStartDate($start);
 $event->setEndDate($end);
-$event->setDescription($finalText);
-$event->setName($finalEvent);
+$event->setDescription($_POST["event"]);
+$event->setName($_POST["subject"]);
 
 $eventFetcher->addEvent($event);
 
