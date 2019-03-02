@@ -60,7 +60,29 @@ $event->setEndDate($end);
 $event->setDescription($_POST["text"]);
 $event->setName($_POST["subject"]);
 
+
+
+$name = $_FILES['fileToUpload']['name'];
+$temp_name = $_FILES['fileToUpload']['tmp_name'];
+
+if (isset($name)) {
+
+    if (!empty($name)) {
+        $location = './attachments/';
+    }
+
+    if (move_uploaded_file($temp_name, $location.$name)) {
+        echo 'Uploaded file ' . $name . " with id ";
+        $event->setAttachment('/attachments/' . $name);
+    }
+
+} else {
+    echo 'Upload failed.';
+    $event->setAttachment(NULL);
+}
+
 $eventFetcher->addEvent($event);
+
 
 //INSERT INTO event (name, startDate,
 
