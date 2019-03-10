@@ -23,6 +23,8 @@ $values = new Values();
 
 try {
     //Server settings
+
+
     $mail->SMTPDebug = 2;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = $values->smtp;                       // Specify main and backup SMTP servers
@@ -33,6 +35,11 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     $mail->CharSet = 'utf-8';
+
+    if(null != (filter_input(INPUT_POST, "pwOverride"))){
+      $mail->Username = $_POST["sender"];                 // SMTP username
+      $mail->Password = filter_input(INPUT_POST, "pwOverride");
+    }
 
     //Recipients
     $mail->setFrom($_POST["sender"], $user->getName());

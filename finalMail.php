@@ -23,7 +23,7 @@ if($_SESSION["user"] != NULL){
 
 
 <form action="finalMail.php" method="post" enctype="multipart/form-data">
-    Sender: <input type="text" name="sender" value="<?php echo$_SESSION["user"]->getEmail() ?>"><br>  <input type="password" name="pwOverride">
+    Sender: <input type="text" name="sender" value="<?php echo$_SESSION["user"]->getEmail() ?>"> Aalto-password for auth: <input type="password" name="pwOverride"><br>
     Receiver: <input type="text" name="receiver"><br>
     Subject: <input style="width:400px" type="text" name="subject"><br>
     When to send: <input type="time" name="timeToSend" id="timeToSend"><br>
