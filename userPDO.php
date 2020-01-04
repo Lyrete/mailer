@@ -36,6 +36,13 @@ class UserPDO{
 
     }
 
+    function addUser($user, $email, $pw, $name){
+        $sql = "INSERT INTO users (user,email,pw,name,usr_lvl) VALUES (?,?,?,?,?)";
+
+        $q = $this->pdo->prepare($sql);
+        $q->execute(array($user, $email, $pw, $name, "user"));
+    }
+
     function validateUser($user, $pw){
         if(!$this->getUser($user)){ //returns false if no user in db kind of unnecessary
             return FALSE;

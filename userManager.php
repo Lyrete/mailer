@@ -31,8 +31,11 @@ Admin CP - Add a new user<br><br>
 
 <form action="userManager.php" method="post">
     User: <input type="text" name="userAdd" required><br>
+    Name: <input type="text" name="nameAdd" required><br>
+    E-mail: <input type="email" name="emailAdd" required><br>
     Password: <input type="password" name="pwAdd" required><br>
     Re-enter password: <input type="password" name="pw2Add" required><br>
+
     <input type="submit" value="Add user">
 </form>
 
@@ -66,18 +69,26 @@ if(isset($_POST["pwOld"])){
       echo "Wrong password, try again.";
     }
 }
-//password_hash($pw, PASSWORD_BCRYPT)
 
+if(isset($_POST["userAdd"])){
+    $username = filter_input(INPUT_POST, 'userAdd');
+    $email = filter_input(INPUT_POST, 'emailAdd');
+    $name = filter_input(INPUT_POST, "nameAdd");
+    $pw = filter_input(INPUT_POST, "pwAdd");
+    $pw2 = filter_input(INPUT_POST, "pw2Add");
+    if ($pw == $pw2){
+        $hash = password_hash($pw, PASSWORD_BCRYPT);
+        if($userPDO->getUser($username) != null){
+            $userPDO->addUser($username, $email, $hash, $name);
+            echo "User " . $username . " added.";
+        } else {
+            echo "Username " . $username . " already exists, pick another one.";
+        }
+    } else {
+        echo "The passwords didn't match.";
+    }
+}
 
-// $userIn = filter_input(INPUT_POST, 'user');
-// $pwIn = filter_input(INPUT_POST, 'pw');
-//
-// if(isset($userIn) && !$db->getUser($userIn)){
-//     $db->addUser($userIn, $pwIn);
-//     echo "User " . $userIn . " added!";
-// } else {
-//     echo "User " . $user . " already exists, pick another name!";
-// }
 
 } else {
     include 'index.php';
