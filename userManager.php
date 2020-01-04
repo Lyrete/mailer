@@ -78,7 +78,7 @@ if(isset($_POST["userAdd"])){
     $pw2 = filter_input(INPUT_POST, "pw2Add");
     if ($pw == $pw2){
         $hash = password_hash($pw, PASSWORD_BCRYPT);
-        if($userPDO->getUser($username) != null){
+        if($userPDO->getUser($username) == null){
             $userPDO->addUser($username, $email, $hash, $name);
             echo "User " . $username . " added.";
         } else {
