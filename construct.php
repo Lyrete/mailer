@@ -50,7 +50,7 @@ foreach ($wholeresult as $row){
         
         if($row["kategoria"] == "muu"){
             $element = array();
-            $element["title"] = $row["name"] . ' ' . $date;
+            $element["title"] = $row["name"];
             if($row["showDate"]){
                 $element["title"] .= ' ' . $date;
             }
