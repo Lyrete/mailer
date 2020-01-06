@@ -37,7 +37,10 @@ foreach ($wholeresult as $row){
         if($row["kategoria"] == "kilta"){
             $element = array();
             if($row["id"] == 80){$date = null;} //purkka päivän poisto homonaamasta
-            $element["title"] = $row["name"] . ' ' . $date;
+            $element["title"] = $row["name"];
+            if($row["showDate"]){
+                $element["title"] .= ' ' . $date;
+            }
             $element["event"] = $row["description"];
             array_push($guildEvents, $element);
             if($row["attachment"] != NULL){
@@ -48,6 +51,9 @@ foreach ($wholeresult as $row){
         if($row["kategoria"] == "muu"){
             $element = array();
             $element["title"] = $row["name"] . ' ' . $date;
+            if($row["showDate"]){
+                $element["title"] .= ' ' . $date;
+            }
             $element["event"] = $row["description"];
             array_push($otherEvents, $element);
             if($row["attachment"] != NULL){
@@ -58,6 +64,9 @@ foreach ($wholeresult as $row){
         if($row["kategoria"] == "ylim"){
             $element = array();
             $element["title"] = $row["name"];
+            if($row["showDate"]){
+                $element["title"] .= ' ' . $date;
+            }
             $element["event"] = $row["description"];
             array_push($misc, $element);
             if($row["attachment"] != NULL){

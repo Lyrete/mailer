@@ -53,9 +53,15 @@ for ($i = 0; $i < strlen($_POST["subject"]); $i++){
     }
 }
 
+$showDate = 0;
+if(!empty($_POST["showDate"])){
+    $showDate = 1;
+}
+
 $event = new Event();
 $event->setKategoria($eventType);
 $event->setStartDate($start);
+$event->setShowDate($showDate);
 $event->setEndDate($end);
 $event->setDescription($_POST["text"]);
 $event->setName($_POST["subject"]);
@@ -69,12 +75,11 @@ if (isset($name)) {
 
     if (!empty($name)) {
         $location = './attachments/';
-    }
-
-    if (move_uploaded_file($temp_name, $location.$name)) {
-        echo 'Uploaded file ' . $name . " with id ";
-        $event->setAttachment('/attachments/' . $name);
-    }
+        if (move_uploaded_file($temp_name, $location.$name)) {
+            echo 'Uploaded file ' . $name . " with id ";
+            $event->setAttachment('/attachments/' . $name);
+        }
+    }    
 
 } else {
     echo 'Upload failed.';

@@ -71,6 +71,7 @@ class eventFetcher{
             $event->setName(filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING));
             $event->setStartDate(filter_input(INPUT_POST, "startDate", FILTER_SANITIZE_STRING));
             $event->setEndDate(filter_input(INPUT_POST, "endDate", FILTER_SANITIZE_STRING));
+            $event->setShowDate(filter_input(INPUT_POST, "showDate", FILTER_SANITIZE_STRING));
             $event->setDescription(filter_input(INPUT_POST, "text", FILTER_SANITIZE_STRING));
             $event->setKategoria(filter_input(INPUT_POST, "kategoria", FILTER_SANITIZE_STRING));
         }
@@ -81,9 +82,9 @@ class eventFetcher{
             $event->setEndDate(NULL);
         }
 
-        $sql = "UPDATE event SET startDate = ?, endDate = ?, description = ?, kategoria = ? WHERE id = ?";
+        $sql = "UPDATE event SET startDate = ?, endDate = ?, showDate = ?, description = ?, kategoria = ? WHERE id = ?";
         $q = $this->pdo->prepare($sql);
-        $q->execute(array($event->getStartDate(), $event->getEndDate(), $event->getDescription(), $event->getKategoria(), $event->getId()));
+        $q->execute(array($event->getStartDate(), $event->getEndDate(), $event->getShowDate(), $event->getDescription(), $event->getKategoria(), $event->getId()));
     }
 
     function deleteEvent($id){
@@ -93,10 +94,10 @@ class eventFetcher{
     }
 
     function addEvent($event){
-        $sql = "INSERT INTO event (name, startDate, endDate, kategoria, description, attachment) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO event (name, startDate, endDate, showDate, kategoria, description, attachment) VALUES (?,?, ?,?,?,?,?)";
         $q = $this->pdo->prepare($sql);
         try{
-          $q->execute(array($event->getName(), $event->getStartDate(), $event->getEndDate(), $event->getKategoria(), $event->getDescription(),$event->getAttachment()));
+          $q->execute(array($event->getName(), $event->getStartDate(), $event->getEndDate(), $event->getShowDate(), $event->getKategoria(), $event->getDescription(),$event->getAttachment()));
         } catch (PDOException $e){
             echo "Something went wrong: " . $e->getMessage();
         }

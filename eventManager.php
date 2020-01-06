@@ -36,6 +36,10 @@ if($_SESSION["user"] != NULL){
         <td><input type=Date name="endDate" value="<?php echo $event->getEndDate() ?>"></td>
       </tr>
       <tr>
+        <td>Show Date</td>
+        <td><input type=checkbox name="showDate" value="1" <?php if($event->getShowDate()){echo "checked";} ?>></td>
+      </tr>
+      <tr>
         <td>Type</td>
         <td><select name="kategoria">
           <?php

@@ -15,6 +15,7 @@ class Event{
     private $endDate;
     private $description;
     private $attachment;
+    private $showDate;
     
     function getName(){
         return $this->name;
@@ -50,6 +51,14 @@ class Event{
     
     function getEndDate(){
         return $this->endDate;
+    }
+
+    function getShowDate(){
+        return $this->showDate;
+    }
+
+    function setShowDate($showDate){
+        $this->showDate = $showDate;
     }
     
     function setEndDate($endDate){
