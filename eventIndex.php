@@ -6,11 +6,11 @@ if($_SESSION["user"] != NULL){
 
     include 'navigation.php';
     $db = new DB();
-    include_once 'eventFetcher.php';
+    include_once 'eventPDO.php';
 
-    $eventFetcher = new eventFetcher();
+    $eventPDO = new eventPDO();
 
-    $events = $eventFetcher->getAllEvents("date");
+    $events = $eventPDO->getAllEvents("date");
 
     ?>
 

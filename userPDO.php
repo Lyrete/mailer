@@ -2,17 +2,20 @@
 
 include_once "user.php";
 
+
 class UserPDO{
     public $pdo;
 
     public function __construct() {
-        $this->pdo = $this->initDB();
+        
+        $this->pdo = $this->initDB();        
     }
 
     function initDB(){
         $dsn = 'mysql:dbname=newsletter;host=localhost;charset=UTF8';
         try{
-            $conn = new PDO($dsn, "dbConnect", "connectsalainen");
+            include_once "values.php";
+            $conn = new PDO($dsn, $vars["dbUser"], $vars["dbPw"]);
             return $conn;
         } catch (PDOException $e){
             echo "Connection failed: " . $e->getMessage();

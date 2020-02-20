@@ -6,11 +6,11 @@ if($_SESSION["user"] != NULL){
 
     include 'navigation.php';
     $db = new DB();
-    include_once 'eventFetcher.php';
+    include_once 'eventPDO.php';
 
-    $eventFetcher = new eventFetcher();
+    $eventPDO = new eventPDO();
 
-    $event = $eventFetcher->getEvent($_GET["id"]);
+    $event = $eventPDO->getEvent($_GET["id"]);
 
     $types = array("kilta", "muu", "ylim");
 
@@ -20,7 +20,7 @@ if($_SESSION["user"] != NULL){
       <input type=submit value="Delete the Event">
     </form>
 
-    <form method="post" action="<?php $eventFetcher->updateEvent($event) ?>">
+    <form method="post" action="<?php $eventPDO->updateEvent($event) ?>">
       <input type=hidden name="id" value="<?php echo $event->getId() ?>">
       <table>
       <tr>

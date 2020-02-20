@@ -1,5 +1,6 @@
 <head>
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <title>Newsletter CP</title>
 </head>
 
 <?php
@@ -19,9 +20,6 @@ if(isset($_SESSION["user"])){
 
 <style><?php include 'styles.css'; ?></style>
 
-<head>
-    <title>Newsletter CP</title>
-</head>
 
 <?php if(isset($user)){?>
   Logged in as <?php echo "<br>" . $user->getName() . " <br>" . $user->getEmail()?><br><br>

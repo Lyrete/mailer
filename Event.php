@@ -1,45 +1,84 @@
 <?php
 
-require 'Date.php';
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 class Event{
     
-    public $text;
-    public $startDate;
-    public $endDate;
-    public $name;
+    private $name;
+    private $kategoria;
+    private $id;
+    private $startDate;
+    private $endDate;
+    private $description;
+    private $attachment;
+    private $showDate;
     
-    public function __construct($nameInput, $date1, $date2, $textInput) {
-        $this->name = $nameInput;
-        $this->startDate = $date1;
-        $this->endDate = $date2;
-        $this->text = $textInput;
+    function getName(){
+        return $this->name;
     }
     
-    public function duration(){
-        if($this->endDate->day == '' and $this->endDate->month == ''){
-            $duration = (string)$this->startDate;
-        } else {
-            $duration = $this->startDate . '-' . $this->endDate;
-        }
-        
-        return $duration;
+    function setName($name){
+        $this->name = $name;
     }
     
-    public function HTMLtext(){
-        $HTML = '<b>' . $this->name . ' ' . $this->duration() . '</b>'. PHP_EOL . '<br><br>';
-        for ($i = 0; $i < strlen($this->text); $i++){
-            if($this->text[$i] == "\n"){
-                $HTML .= '<br>';                               
-            } else {
-                $HTML .= $this->text[$i];
-            }
-        }
-        
-        return $HTML;
+    function getKategoria(){
+        return $this->kategoria;
     }
     
-    public function rawText(){
-        return $this->name . ' '.$this->duration() . PHP_EOL . PHP_EOL . $this->text;
+    function setKategoria($kategoria){
+        $this->kategoria = $kategoria;
+    }
+    
+    function getId(){
+        return $this->id;
+    }
+    
+    function setId($id){
+        $this->id = $id;
+    }
+    
+    function getStartDate(){
+        return $this->startDate;
+    }
+    
+    function setStartDate($startDate){
+        $this->startDate = $startDate;
+    }
+    
+    function getEndDate(){
+        return $this->endDate;
+    }
+
+    function getShowDate(){
+        return $this->showDate;
+    }
+
+    function setShowDate($showDate){
+        $this->showDate = $showDate;
+    }
+    
+    function setEndDate($endDate){
+        $this->endDate = $endDate;
+    }
+    
+    function getDescription(){
+        return $this->description;
+    }
+    
+    function setDescription($description){
+        $this->description = $description;
+    }
+    
+    function getAttachment(){
+        return $this->attachment;
+    }
+    
+    function setAttachment($attachment){
+        $this->attachment = $attachment;
     }
 }
+

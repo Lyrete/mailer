@@ -2,7 +2,7 @@
 
 include_once 'Event0.php';
 
-class eventFetcher{
+class eventPDO{
 
     public $pdo;
 
@@ -13,7 +13,8 @@ class eventFetcher{
     function initDB(){
         $dsn = 'mysql:dbname=newsletter;host=localhost;charset=UTF8';
         try{
-            $conn = new PDO($dsn, "dbConnect", "connectsalainen");
+            include_once "values.php";
+            $conn = new PDO($dsn, $vars["dbUser"], $vars["dbPw"]);
             return $conn;
         } catch (PDOException $e){
             echo "Connection failed: " . $e->getMessage();

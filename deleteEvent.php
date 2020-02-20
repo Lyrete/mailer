@@ -8,14 +8,14 @@ if($_SESSION["user"] != NULL){
     include 'navigation.php';
     $db = new DB();
     $user = $_SESSION['user'];
-    include_once 'eventFetcher.php';
+    include_once 'eventPDO.php';
 
     $userPDO = new UserPDO();
-    $eventFetcher = new eventFetcher();
+    $eventPDO = new eventPDO();
 
-    $event = $eventFetcher->getEvent($_GET["id"]);
+    $event = $eventPDO->getEvent($_GET["id"]);
 
-    $eventFetcher->deleteEvent($event->getId());
+    $eventPDO->deleteEvent($event->getId());
 
     echo "Removed the event " . $event->getName();
 

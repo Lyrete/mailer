@@ -11,12 +11,12 @@ if($_SESSION["user"] != NULL){
     $db = new DB();
 
 
-require_once 'Event0.php';
+require_once 'Event.php';
 //require 'values.php';
 require_once 'database.php';
-require_once 'eventFetcher.php';
+require_once 'eventPDO.php';
 
-$eventFetcher = new eventFetcher();
+$eventPDO = new eventPDO();
 
 $text = $_POST["text"];
 
@@ -86,24 +86,7 @@ if (isset($name)) {
     $event->setAttachment(NULL);
 }
 
-$eventFetcher->addEvent($event);
-
-
-//INSERT INTO event (name, startDate,
-
-// $sqlstring = "INSERT INTO event (name, startDate)";
-//
-// $sqlstring .= "description, kategoria)" . " VALUES ('" . $finalEvent . "','" . $start . "',";
-//
-// if(!($end == '')){
-//     $sqlstring .= "'" . $end . "',";
-// }
-//
-//
-// $sqlstring .= "'" . $finalText . "','" . $eventType . "')";
-//
-// $db = new DB();
-// $db->query($sqlstring);
+$eventPDO->addEvent($event);
 
 
 ?>
