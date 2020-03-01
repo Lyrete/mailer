@@ -6,9 +6,9 @@
 <?php
 ini_set("file_uploads", "1");
 
-require_once 'database.php';
 require_once 'userPDO.php';
 require_once 'user.php';
+require_once 'values.php';
 
 if(isset($_SESSION["user"])){
   $user = $_SESSION["user"];

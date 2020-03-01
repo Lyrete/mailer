@@ -16,6 +16,7 @@ if($_SESSION["user"] != NULL){
     End date: <input type="Date" name="endDate"> (Don't enter if the event is one day only)
     <br>
     <input type="checkbox" name="showDate" checked> Show date <br>
+    <input type="radio" name="eventType" value="atiedotus">Kilta tiedottaa
     <input type="radio" name="eventType" value="kilta" checked>Killan tapahtuma
     <input type="radio" name="eventType" value="muu">Muu tapahtuma
     <input type="radio" name="eventType" value="ylim">Muuta

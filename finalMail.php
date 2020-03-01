@@ -11,7 +11,7 @@ if($_SESSION["user"] != NULL){
 
     include 'navigation.php';
 
-    $db = new DB();
+    
     $url = "http://lyrete.me/NL/scripts/sync.php";
 
     $ch = curl_init($url);

@@ -8,7 +8,7 @@ if($_SESSION["user"] != NULL){
 
     include 'navigation.php';
 
-    $db = new DB();
+    
 
 
 require_once 'Event.php';

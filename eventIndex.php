@@ -5,7 +5,6 @@ session_start();
 if($_SESSION["user"] != NULL){
 
     include 'navigation.php';
-    $db = new DB();
     include_once 'eventPDO.php';
 
     $eventPDO = new eventPDO();

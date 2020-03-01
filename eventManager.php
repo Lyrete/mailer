@@ -5,14 +5,13 @@ session_start();
 if($_SESSION["user"] != NULL){
 
     include 'navigation.php';
-    $db = new DB();
     include_once 'eventPDO.php';
 
     $eventPDO = new eventPDO();
 
     $event = $eventPDO->getEvent($_GET["id"]);
 
-    $types = array("kilta", "muu", "ylim");
+    $types = array("atiedotus","kilta", "muu", "ylim");
 
     ?>
 

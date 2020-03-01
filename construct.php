@@ -13,6 +13,7 @@ $wholeresult = $db->getWholeResult($sql);
 //initialize arrays for the types of events
 
 $guildEvents = array();
+$guildAnnouncements = array();
 $otherEvents = array();
 $misc = array();
 
@@ -33,6 +34,20 @@ foreach ($wholeresult as $row){
         }
         
 //        echo $row["kategoria"] . '  -  ' . $date . ' ' . $row["name"] . '  ' .'<br>';
+
+        if($row["kategoria"] == "atiedotus"){
+            $element = array();
+            if($row["id"] == 80){$date = null;} //purkka päivän poisto homonaamasta
+            $element["title"] = $row["name"];
+            if($row["showDate"]){
+                $element["title"] .= ' ' . $date;
+            }
+            $element["event"] = $row["description"];
+            array_push($guildAnnouncements, $element);
+            if($row["attachment"] != NULL){
+                array_push($attachments, $row["attachment"]);
+            }
+        }
         
         if($row["kategoria"] == "kilta"){
             $element = array();
@@ -86,7 +101,19 @@ $eventTexts = '';
 
 $i = 1;
 
-$titleHeader .= '<b>Killan tapahtumat // Guild\'s events</b>' . "\n\n";
+$titleHeader .= '<b>Killan tiedotteet // Guild\'s announcements </b>' . "\n\n";
+
+foreach ($guildAnnouncements as $event){
+    $titleHeader .= $i . '. ' . $event["title"] . "\n";
+    $result = $event["event"];
+    $eventTexts .= "\n\n<b>" . $i . '. ' . $event["title"]
+            . '</b>'. "\n"
+            . "\n" .
+            $result . "\n\n" . '---------------';    
+    $i++;
+}
+
+$titleHeader .= "\n" . ' <b>Killan tapahtumat // Guild\'s events</b>' . "\n\n";
 
 foreach ($guildEvents as $event){
     $titleHeader .= $i . '. ' . $event["title"] . "\n";

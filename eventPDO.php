@@ -1,6 +1,6 @@
 <?php
 
-include_once 'Event0.php';
+include_once 'Event.php';
 
 class eventPDO{
 
@@ -14,7 +14,7 @@ class eventPDO{
         $dsn = 'mysql:dbname=newsletter;host=localhost;charset=UTF8';
         try{
             include_once "values.php";
-            $conn = new PDO($dsn, $vars["dbUser"], $vars["dbPw"]);
+            $conn = new PDO($dsn, "dbConnect", "connectsalainen");
             return $conn;
         } catch (PDOException $e){
             echo "Connection failed: " . $e->getMessage();

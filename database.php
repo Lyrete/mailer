@@ -9,8 +9,7 @@
 class DB{
     
     function __construct(){
-        include_once "values.php";
-        $this->conn = mysqli_connect($vars["host"], $vars["dbUser"], $vars["dbPw"],$vars["db"]);
+        $this->conn = mysqli_connect("localhost", "dbConnect", "connectsalainen","newsletter");
         mysqli_set_charset($this->conn, 'utf8');
     }
     

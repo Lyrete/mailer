@@ -2,10 +2,10 @@
 
 <?php
 
-require_once 'database.php';
+include_once 'values.php';
 include_once 'userPDO.php';
 
-$db = new DB();
+$values = new Values();
 $userPDO = new userPDO();
 
 session_start();
@@ -18,12 +18,14 @@ session_start();
 
 
             <?php
+            
             $user = filter_input(INPUT_POST, 'user');
             $pw = filter_input(INPUT_POST, 'pw');
             if(isset($user) and isset($pw)){
                 if($userPDO->validateUser($user, $pw)){
-                    $_SESSION["user"] = $userPDO->getUser($user);
                     include 'navigation.php';
+                    $_SESSION["user"] = $userPDO->getUser($user);
+                    
                 } else {
                     echo 'Wrong username or password. Try again.';
                     $_SESSION["user"] = NULL;
