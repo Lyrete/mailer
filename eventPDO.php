@@ -14,7 +14,7 @@ class eventPDO{
         $dsn = 'mysql:dbname=newsletter;host=localhost;charset=UTF8';
         try{
             include_once "values.php";
-            $conn = new PDO($dsn, "dbConnect", "connectsalainen");
+            $conn = new PDO($dsn, $vars["user"], $vars["pw"]);
             return $conn;
         } catch (PDOException $e){
             echo "Connection failed: " . $e->getMessage();
